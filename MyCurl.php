@@ -55,10 +55,25 @@ class MyCURL {
     public function save_images($path, $src) {
         $fp = fopen($path, 'w');
         $ch = curl_init($src);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
         curl_setopt($ch, CURLOPT_TIMEOUT, 1000);
         curl_setopt($ch, CURLOPT_FILE, $fp);
+
         curl_exec($ch);
         curl_close($ch);
+    }
+
+    public function basic_auth($url, $username, $password, $useragent) {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+        curl_setopt($ch, CURLOPT_USERPWD, "{$username}:{$password}");
+
+        curl_exec($ch);
+        curl_close($ch);
+
+        echo 'Fake user agent: ' . $_SERVER['HTTP_USER_AGENT'];
     }
 }
