@@ -34,18 +34,21 @@ class MyCURL {
                 $path = $save_path . $name;
                 echo '<br>';
                 echo $img->src;
-                $fp = fopen($path, 'w');
-                $ch = curl_init($img->src);
-                curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0");
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_TIMEOUT, 1000);
-                curl_setopt($ch, CURLOPT_FILE, $fp);
-                curl_exec($ch);
-                curl_close($ch);
+
+                $this->save_images($path, $img->src);
             }
         }
 
         $html->clear(); 
         unset($html);
+    }
+
+    public function save_images($path, $img_src) {
+        $fp = fopen($path, 'w');
+        $ch = curl_init($img_src);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 1000);
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+        curl_exec($ch);
+        curl_close($ch);
     }
 }
