@@ -67,13 +67,18 @@ class MyCURL {
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
+        // curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array("User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3"));
+
+
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
         curl_setopt($ch, CURLOPT_USERPWD, "{$username}:{$password}");
 
         curl_exec($ch);
         curl_close($ch);
 
+        // http://www.useragentstring.com/index.php
+        echo $useragent . '<br>';
         echo 'Fake user agent: ' . $_SERVER['HTTP_USER_AGENT'];
     }
 }
