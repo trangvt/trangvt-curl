@@ -30,12 +30,15 @@ class MyCURL {
         if (is_object($html)) {
             $img_arr = $html->find('img');
             foreach($img_arr as $img) {
-                $name = date('YmdHis',time()).mt_rand(). '.jpg';
+                $src = $img->src;
+                $type = substr($src, strripos($src, ".") + 1);
+                $name = date('YmdHis',time()).mt_rand(). '.' . $type;
                 $path = $save_path . $name;
                 echo '<br>';
+                echo $path.'<br>';
                 echo $img->src;
 
-                $this->save_images($path, $img->src);
+                $this->save_images($path, $src);
             }
         }
 
@@ -43,9 +46,16 @@ class MyCURL {
         unset($html);
     }
 
-    public function save_images($path, $img_src) {
+    /**
+     * [save_images description]
+     * @param  [type] $path [description]
+     * @param  [type] $src  [description]
+     * @return [type]       [description]
+     */
+    public function save_images($path, $src) {
         $fp = fopen($path, 'w');
-        $ch = curl_init($img_src);
+        $ch = curl_init($src);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 1000);
         curl_setopt($ch, CURLOPT_FILE, $fp);
         curl_exec($ch);
