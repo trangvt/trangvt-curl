@@ -63,6 +63,14 @@ class MyCURL {
         curl_close($ch);
     }
 
+    /**
+     * [basic_auth description]
+     * @param  [type] $url       [description]
+     * @param  [type] $username  [description]
+     * @param  [type] $password  [description]
+     * @param  [type] $useragent [description]
+     * @return [type]            [description]
+     */
     public function basic_auth($url, $username, $password, $useragent) {
         $ch = curl_init();
 
@@ -80,5 +88,41 @@ class MyCURL {
         // http://www.useragentstring.com/index.php
         echo $useragent . '<br>';
         echo 'Fake user agent: ' . $_SERVER['HTTP_USER_AGENT'];
+    }
+
+    /**
+     * [get_data description]
+     * @param  [type] $url       [description]
+     * @param  [type] $param_arr [description]
+     * @return [type]            [description]
+     */
+    public function get_data($url, $param_arr) {
+        $param = 'result?stay_date='.urlencode($param_arr['stay_date']);
+        $url .= $param;
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+
+        curl_exec($ch);
+        curl_close($ch);
+    }
+
+    /**
+     * [post_data description]
+     * @param  [type] $url       [description]
+     * @param  [type] $param_arr [description]
+     * @return [type]            [description]
+     */
+    public function post_data($url, $param_arr) {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($param_arr));
+
+        curl_exec($ch);
+        curl_close($ch);
     }
 }
