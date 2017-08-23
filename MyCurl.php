@@ -19,40 +19,77 @@ class MyCURL {
     }
 
     /**
-     * [get_images description]
-     * @param  [type] $url    [description]
-     * @param  [type] $save_path [description]
-     * @return [type]         [description]
+     * Get images
+     * @param  [string] $url    website url
+     * @param  [string] $save_path where to save image
+     * @return [array]         image infomations
      */
     public function get_images($url, $save_path) {
         $html = file_get_html($url);
 
+        $images = [];
+
         if (is_object($html)) {
             $img_arr = $html->find('img');
             foreach($img_arr as $img) {
-                $src = $img->src;
-                $type = substr($src, strripos($src, ".") + 1);
-                $name = date('YmdHis',time()).mt_rand(). '.' . $type;
-                $path = $save_path . $name;
-                echo '<br>';
-                echo $path.'<br>';
-                echo $img->src;
+                $src = $this->get_src($url, $img->src);
 
-                $this->save_images($path, $src);
+                $type = $this->find_extension($src);
+
+                if ( !empty($type) )  {
+                    $name = date('YmdHis',time()).mt_rand(). $type;
+                    $path = $save_path . $name;
+
+                    $this->save_image($path, $src);
+
+                    $images[] = [
+                        'path_local' => $path,
+                        'path_server' => $src
+                    ];
+                }
             }
         }
 
         $html->clear(); 
         unset($html);
+
+        return $images;
     }
 
     /**
-     * [save_images description]
+     * [get_src description]
+     * @param  [string] $url [description]
+     * @param  [string] $src [description]
+     * @return [string]      [description]
+     */
+    public function get_src($url, $src) {
+        if (stripos($src, $url) == FALSE) {
+            $src = $url . $src;
+        }
+        return $src;
+    }
+    /**
+     * Find image extension
+     * @param  [string] $src  image src
+     * @return [string]       image extension
+     */
+    public function find_extension($src) {
+        foreach ($GLOBALS['image_extension'] as $value) {
+            // https://www.w3schools.com/php/func_string_strripos.asp
+            if (strripos($src, $value) !== FALSE) {
+                return $value;
+            }
+        }
+        return NULL;
+    }
+
+    /**
+     * Save images
      * @param  [type] $path [description]
      * @param  [type] $src  [description]
      * @return [type]       [description]
      */
-    public function save_images($path, $src) {
+    public function save_image($path, $src) {
         $fp = fopen($path, 'w');
         $ch = curl_init($src);
 

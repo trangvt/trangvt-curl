@@ -14,4 +14,9 @@ $url = $_REQUEST['url'];
 $path = __ROOT__.'/images/';
 
 $ch = new MyCurl();
-$ch->get_images($url, $path);
+$result = $ch->get_images($url, $path);
+
+if ($result) {
+    echo 'Success!<pre>';
+    var_dump($result);
+}

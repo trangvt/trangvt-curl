@@ -13,21 +13,21 @@
     <div>
         <p>Simplest example</p>
         <form action="curl.php">
-            URL: <input type="text" name="url" value="https://www.bbcgoodfood.com/howto/guide/fizzy-drinks">
+            URL: <input type="text" name="url" value="https://japanhotel.airtrip.jp">
             <input type="submit" value="SUBMIT">
         </form>
     </div>
     <br><hr>
     <div>
-        <p>Get images</p>
+        <p>Get images via cURL. Don't add last slash in URL</p>
         <form action="images.php">
-            URL: <input type="text" name="url" value="https://japanhotel.airtrip.jp/">
+            URL: <input type="text" name="url" value="https://japanhotel.airtrip.jp">
             <input type="submit" value="Get Images">
         </form>
     </div>
     <br><hr>
     <div>
-        <p>BasicAuth</p>
+        <p>Access to the website has BasicAuth</p>
         <form action="auth.php">
             <input type="text" name="url" value="https://japanhotelairtrip.tabi-air.com/"></br></br>
             <input type="text" name="username" value="rakuda"></br></br>
@@ -37,7 +37,7 @@
     </div>
     <br><hr>
     <div>
-        <p>GET DATA</p>
+        <p>GET DATA via cURL</p>
         <form action="get.php">
             <input type="text" name="url" value="https://japanhotel.airtrip.jp/"></br></br>
             <input type="text" name="stay_date" value="2017/08/22"></br></br>
@@ -46,7 +46,7 @@
     </div>
     <br><hr>
     <div>
-        <p>POST DATA</p>
+        <p>POST DATA: Login via cURL</p>
         <form action="post.php" method="POST">
             url: <input type="text" name="url" value="https://www.bbcgoodfood.com/user/login"></br></br>
             name: <input type="text" name="name" value="trangvt.khtn@gmail.com"></br></br>
@@ -62,4 +62,8 @@
 
 </html>
 <?php
+require_once('config.php');
+$ch = new MyCurl();
+
 phpinfo();
+

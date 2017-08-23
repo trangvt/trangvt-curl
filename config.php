@@ -14,3 +14,5 @@ $GLOBALS['image_types'] = [
     7 => 'tiff',
     8 => 'tiff',
 ];
+
+$GLOBALS['image_extension'] = ['.gif', '.jpeg', '.png', '.bmp', '.tiff', '.jpg'];
