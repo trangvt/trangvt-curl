@@ -4,17 +4,21 @@ require_once('config.php');
 set_time_limit(10000);
 
 $url = $_REQUEST['url'];
-$data = array(
+$param_arr = array(
     'name' => $_REQUEST['name'],
     'pass' => $_REQUEST['pass'],
     'form_build_id' => $_REQUEST['form_build_id'],
     'form_id' => $_REQUEST['form_id'],
     'op' => $_REQUEST['op'],
 );
-$user_agent       = "Mozilla/5.0 (X11; Linux i686; rv:24.0) Gecko/20140319 Firefox/24.0 Iceweasel/24.4.0";
+$user_agent = "Mozilla/5.0 (X11; Linux i686; rv:24.0) Gecko/20140319 Firefox/24.0 Iceweasel/24.4.0";
 $timeout = 5;
 $cookie = 'cookie.txt';
 
+$ch = new MyCurl();
+$ch->post_data($url, $param_arr, $cookie, $user_agent, $timeout);
+
+/**
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);
 
@@ -41,3 +45,7 @@ $response = curl_getinfo( $ch );
 $status_code = curl_getinfo($ch,CURLINFO_HTTP_CODE);
 $newurl = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
 curl_close($ch);
+
+$useragent = $_SERVER ['HTTP_USER_AGENT'];
+echo "<b>Your User Agent is</b>: " . $useragent;
+*/

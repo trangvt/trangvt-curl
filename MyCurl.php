@@ -151,14 +151,30 @@ class MyCURL {
      * @param  [type] $param_arr [description]
      * @return [type]            [description]
      */
-    public function post_data($url, $param_arr) {
+    public function post_data($url, $param_arr, $cookie, $user_agent,$timeout = 5) {
         $ch = curl_init();
-
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($param_arr));
 
-        curl_exec($ch);
+        curl_setopt($ch,CURLOPT_USERAGENT,$user_agent);
+
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $param_arr);
+
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+
+        curl_setopt( $ch, CURLOPT_COOKIEJAR, $cookie );
+        curl_setopt ($ch, CURLOPT_COOKIEFILE, $cookie);
+
+        curl_setopt( $ch, CURLOPT_AUTOREFERER, true );
+        curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+        curl_setopt( $ch, CURLOPT_ENCODING, "" );
+
+        curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, $timeout );
+        curl_setopt( $ch, CURLOPT_TIMEOUT, $timeout );
+
+        $content = curl_exec( $ch );
+        var_dump($content);
+
         curl_close($ch);
     }
 }

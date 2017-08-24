@@ -29,9 +29,9 @@
     <div>
         <p>Access to the website has BasicAuth</p>
         <form action="auth.php">
-            <input type="text" name="url" value="https://japanhotelairtrip.tabi-air.com/"></br></br>
-            <input type="text" name="username" value="rakuda"></br></br>
-            <input type="text" name="password" value="ea"></br></br>
+            URL: <input type="text" name="url" value="https://japanhotelairtrip.tabi-air.com/"></br></br>
+            username: <input type="text" name="username" value="rakuda"></br></br>
+            password: <input type="text" name="password" value="ea"></br></br>
             <input type="submit" value="Access">
         </form>
     </div>
@@ -39,8 +39,8 @@
     <div>
         <p>GET DATA via cURL</p>
         <form action="get.php">
-            <input type="text" name="url" value="https://japanhotel.airtrip.jp/"></br></br>
-            <input type="text" name="stay_date" value="2017/08/22"></br></br>
+            URL: <input type="text" name="url" value="https://japanhotel.airtrip.jp/"></br></br>
+            stay_date: <input type="text" name="stay_date" value="2017/08/22"></br></br>
             <input type="submit" value="SUBMIT">
         </form>
     </div>
@@ -48,7 +48,7 @@
     <div>
         <p>POST DATA: Login via cURL</p>
         <form action="post.php" method="POST">
-            url: <input type="text" name="url" value="https://www.bbcgoodfood.com/user/login"></br></br>
+            URL: <input type="text" name="url" value="https://www.bbcgoodfood.com/user/login"></br></br>
             name: <input type="text" name="name" value="trangvt.khtn@gmail.com"></br></br>
             pass: <input type="text" name="pass" value="27081991"></br></br>
             form_build_id: <input type="text" name="form_build_id" value="form-6x1QcEJZxwJz8IyZY712wJar6ssyUsHRyldDKS24t3k"></br></br>
